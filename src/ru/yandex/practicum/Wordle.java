@@ -25,7 +25,7 @@ public class Wordle {
             Scanner scanner = new Scanner(System.in);
             boolean gameOver = false;
 
-            while (wordleGame.steps < wordleGame.MAX_STEPS) {
+            while (wordleGame.steps < wordleGame.maxSteps) {
                 System.out.println("------------------------------------------------------");
                 System.out.println("Введите слово или 'подсказка' для получения подсказки:");
                 String guessWord = scanner.nextLine();

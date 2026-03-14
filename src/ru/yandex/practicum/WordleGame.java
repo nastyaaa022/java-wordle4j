@@ -19,7 +19,7 @@ public class WordleGame {
     private String answer;
     int steps;
     private final WordleDictionary dictionary;
-    final int MAX_STEPS = 6;
+    final int maxSteps = 6;
 
     private final PrintWriter logFile;
 
@@ -79,7 +79,7 @@ public class WordleGame {
     }
 
     public String getGameState() {
-        if (steps >= MAX_STEPS || checkWinCondition()) {
+        if (steps >= maxSteps || checkWinCondition()) {
             return "Игра окончена. ";
         }
 
@@ -103,7 +103,7 @@ public class WordleGame {
             state.deleteCharAt(state.length() - 1);
         }
 
-        state.append("\nОсталось попыток: ").append(MAX_STEPS - steps).append("\n");
+        state.append("\nОсталось попыток: ").append(maxSteps - steps).append("\n");
 
         return state.toString();
     }
@@ -153,7 +153,7 @@ public class WordleGame {
             if (result.equals("+++++")) {
                 logMessage("Вы выиграли!");
                 return true;
-            } else if (steps >= MAX_STEPS) {
+            } else if (steps >= maxSteps) {
                 logMessage("Вы проиграли, попытки закончились.");
                 return false;
             }
