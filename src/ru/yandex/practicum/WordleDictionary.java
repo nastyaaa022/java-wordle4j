@@ -14,10 +14,12 @@ public class WordleDictionary {
     private final List<String> words;
     private final PrintWriter logFile;
 
-    public WordleDictionary(List<String> words, PrintWriter logFile) {
+    public WordleDictionary(List<String> words, PrintWriter logFile) throws WordleDictionaryException {
         this.logFile = logFile;
         if (words == null) {
-            throw new IllegalArgumentException("Список слов не должен быть null.");
+            logFile.println("Ошибка: список слов передан как null.");
+            throw new WordleDictionaryException("Список слов не должен быть пустым.");
+
         }
         this.words = words;
     }
@@ -27,6 +29,9 @@ public class WordleDictionary {
 
         List<String> filteredWords = excludeEnglishWords();
         logMessage("После исключения английских слов: " + filteredWords.size());
+
+        filteredWords = wordToLowerCase(filteredWords);
+        logMessage("После замены регистра: " + filteredWords.size());
 
         filteredWords = letterReplacement(filteredWords);
         logMessage("После замены букв: " + filteredWords.size());
@@ -43,6 +48,15 @@ public class WordleDictionary {
             if (!word.matches(".*[a-zA-Z].*")) {
                 filteredWords.add(word);
             }
+        }
+        return filteredWords;
+    }
+
+    public List<String> wordToLowerCase(List<String> words) {
+        List<String> filteredWords = new ArrayList<>();
+        for (String word : words) {
+            String modifiedWord = word.toLowerCase();
+            filteredWords.add(modifiedWord);
         }
         return filteredWords;
     }

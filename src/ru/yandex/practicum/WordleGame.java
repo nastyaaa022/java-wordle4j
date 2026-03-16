@@ -20,6 +20,7 @@ public class WordleGame {
     int steps;
     private final WordleDictionary dictionary;
     final int maxSteps = 6;
+    static int wordLength = 5;
 
     private final PrintWriter logFile;
 
@@ -119,7 +120,7 @@ public class WordleGame {
 
         do {
             word = words.get(random.nextInt(words.size()));
-        } while (word.length() != 5);
+        } while (word.length() != wordLength);
 
         return word;
     }
@@ -190,8 +191,9 @@ public class WordleGame {
             logMessage("Слово для проверки не указано.");
             return false;
         }
+        String toLower = word.toLowerCase();
         List<String> filteredDictionary = dictionary.chooseCorrectWords();
-        return filteredDictionary.contains(word);
+        return filteredDictionary.contains(toLower);
     }
 
     public void logMessage(String message) {

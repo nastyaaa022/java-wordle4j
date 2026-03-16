@@ -13,13 +13,18 @@ import java.util.Scanner;
    вывести состояние игры и конечный результат */
 
 public class Wordle {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, WordleDictionaryException {
         try (PrintWriter logFile = new PrintWriter(Paths.get("log.txt").toFile())) {
 
             WordleDictionaryLoader loader = new WordleDictionaryLoader(logFile);
             List<String> dictionary = loader.loadDictionary("words_ru.txt");
 
-            WordleDictionary wordleDictionary = new WordleDictionary(dictionary, logFile);
+            WordleDictionary wordleDictionary = null;
+            try {
+                wordleDictionary = new WordleDictionary(dictionary, logFile);
+            } catch (WordleDictionaryException e) {
+                System.err.println("Ошибка: " + e.getMessage());
+            }
             WordleGame wordleGame = new WordleGame(wordleDictionary, logFile);
 
             Scanner scanner = new Scanner(System.in);

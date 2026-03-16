@@ -22,12 +22,22 @@ class WordleTest {
     }
 
     @Test
-    public void testWordSelection() {
+    public void WordleDictionaryExceptionTest() {
+        try {
+            WordleDictionary dictionary = new WordleDictionary(null, new PrintWriter(System.out));
+        } catch (WordleDictionaryException e) {
+            System.err.println("Поймано ожидаемое исключение: " + e.getMessage());
+            assertEquals("Список слов не должен быть пустым.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void testWordSelection() throws WordleDictionaryException {
         List<String> dictionary = new ArrayList<>();
         dictionary.add("кости");
         dictionary.add("солнце");
         dictionary.add("коробка");
-        dictionary.add("короб");
+        dictionary.add("Короб");
         dictionary.add("канал");
 
         WordleDictionary wr = new WordleDictionary(dictionary, logFile);
@@ -42,7 +52,7 @@ class WordleTest {
     }
 
     @Test
-    public void testGameWin() {
+    public void testGameWin() throws WordleDictionaryException {
         List<String> dictionary = new ArrayList<>();
         dictionary.add("кости");
         WordleDictionary wr = new WordleDictionary(dictionary, logFile);
@@ -54,7 +64,7 @@ class WordleTest {
     }
 
     @Test
-    public void testGameLoseByExhaustingAttempts() {
+    public void testGameLoseByExhaustingAttempts() throws WordleDictionaryException {
         int maxAttempts = 6;
         List<String> dictionary = new ArrayList<>();
         dictionary.add("кости");
@@ -69,7 +79,7 @@ class WordleTest {
     }
 
     @Test
-    public void filteringAlgorithmInFileTest() {
+    public void filteringAlgorithmInFileTest() throws WordleDictionaryException {
         List<String> dictionary = new ArrayList<>();
         dictionary.add("кости");
         dictionary.add("солнце");
@@ -86,7 +96,7 @@ class WordleTest {
     }
 
     @Test
-    public void hintOperationTest() {
+    public void hintOperationTest() throws WordleDictionaryException {
         List<String> dictionary = new ArrayList<>();
         dictionary.add("кости");
         dictionary.add("короб");
